@@ -1,14 +1,13 @@
 package app_weatherman;
 
-import java.net.*;
-import java.io.*;
+import app_weatherman.yahoo.*;
+
 
 public class Weatherman {
 
-	public static void main(String[] args) throws IOException{
-		
+	public static void main(String[] args){
 		YahooWeatherData j = new YahooWeatherData( 2354314);
-		//System.out.println( j.getLocation().getCity());
+		System.out.println( j.getLocation().getCity());
 	}
 
 }
