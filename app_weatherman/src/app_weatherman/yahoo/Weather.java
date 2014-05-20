@@ -7,13 +7,16 @@ import java.io.IOException;
 public class Weather implements IYahooWeatherItem {	
 	
 	// Private VARIABLES
+	private String temperatureUnits;
 	private String condition, date;
 	private int code;	// the weather conditions are number-coded. See the table for more info.
 	private int temp;
 		
 	// CONSTRUCTOR
-	public Weather( XMLReader weatherReader) throws IOException
-	{		
+	public Weather( XMLReader weatherReader, String temperatureUnits) throws IOException
+	{	
+		this.temperatureUnits = "¡" + temperatureUnits;
+		
 		String currentLine = weatherReader.readFirstInstanceOf("<yweather:condition");				
 		this.condition 	= weatherReader.extract( currentLine, "text");
 		this.code 		= Integer.parseInt( weatherReader.extract(currentLine, "code"));
@@ -26,4 +29,14 @@ public class Weather implements IYahooWeatherItem {
 	public String getDate(){		return date;		}
 	public int getCode(){			return code;		}
 	public int getTemp(){			return temp;		}
+	
+	// TO-STRING methods
+	public String toStringCondition(){	return condition;				}
+	public String toStringDate(){		return date;					}
+	public String toStringTemp(){		return temp + temperatureUnits;	}
+	
+	public String toString()
+	{
+		return toStringTemp() + ", " + condition + " (" + date + ")";
+	}
 }

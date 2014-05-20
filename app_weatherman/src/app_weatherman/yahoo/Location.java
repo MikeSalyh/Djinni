@@ -22,5 +22,14 @@ public class Location implements IYahooWeatherItem{
 	// Public GETTERS
 	public String 	getCity(){			return city;		}
 	public String 	getRegion(){		return region;		}
-	public String 	getCountry(){		return country;		}		
+	public String 	getCountry(){		return country;		}
+	
+	// TO-STRING methods
+	public String toStringCity(){		return "City: " + city;			}
+	public String toStringRegion(){		return "Region: " + region;		}
+	public String toStringCountry(){	return "Country: " + country;	}
+	
+	public String toString(){
+		return city + ", " + region + ", " + country;
+	}
 }

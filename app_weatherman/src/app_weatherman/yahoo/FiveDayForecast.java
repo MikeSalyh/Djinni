@@ -10,14 +10,14 @@ public class FiveDayForecast implements IYahooWeatherItem{
 	private ForecastDay[] forecastArray = new ForecastDay[5];
 	
 	// CONSTRUCTOR
-	public FiveDayForecast( XMLReader weatherReader) throws IOException
+	public FiveDayForecast( XMLReader weatherReader, String temperatureUnits) throws IOException
 	{
 		weatherReader.readFirstInstanceOf("<BR /><b>Forecast:");
-		forecastArray[0] = new ForecastDay( weatherReader.readLine());
-		forecastArray[1] = new ForecastDay( weatherReader.readLine());
-		forecastArray[2] = new ForecastDay( weatherReader.readLine());
-		forecastArray[3] = new ForecastDay( weatherReader.readLine());
-		forecastArray[4] = new ForecastDay( weatherReader.readLine());
+		forecastArray[0] = new ForecastDay( weatherReader.readLine(), temperatureUnits);
+		forecastArray[1] = new ForecastDay( weatherReader.readLine(), temperatureUnits);
+		forecastArray[2] = new ForecastDay( weatherReader.readLine(), temperatureUnits);
+		forecastArray[3] = new ForecastDay( weatherReader.readLine(), temperatureUnits);
+		forecastArray[4] = new ForecastDay( weatherReader.readLine(), temperatureUnits);
 	}
 	
 	// Public GETTERS.

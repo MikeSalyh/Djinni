@@ -16,8 +16,8 @@ public class YahooWeatherData {
 //		VARIABLES & CONSTANTS 
 //	-------------------------------
 
-//	the API request, sans desired city. Append a WOEID to this URL to make a valid request 
-	private static final String URL_BASE = "http://weather.yahooapis.com/forecastrss?w=";
+//	The API request, sans desired city. Append a WOEID to this URL to make a valid request 
+	private static final String URL_BASE = "http://weather.yahooapis.com/forecastrss?w=";	
 	
 //	Objects that hold the weather data. 
 	private Location 		myLocation;
@@ -173,11 +173,11 @@ public class YahooWeatherData {
 		 */
 		myLocation 		= new Location( weatherReader); 
 		myUnits 		= new Units( weatherReader);
-		myWind			= new Wind( weatherReader);
-		myAtmosphere	= new Atmosphere( weatherReader);
+		myWind			= new Wind( weatherReader, myUnits.getTemperature(), myUnits.getSpeed());
+		myAtmosphere	= new Atmosphere( weatherReader, myUnits.getPressure(), myUnits.getDistance());
 		myAstronomy		= new Astronomy( weatherReader);
-		myWeather		= new Weather( weatherReader);
-		myForecast		= new FiveDayForecast( weatherReader);
+		myWeather		= new Weather( weatherReader, myUnits.getTemperature());
+		myForecast		= new FiveDayForecast( weatherReader, myUnits.getTemperature());
 		
 		weatherReader.close();
 	}

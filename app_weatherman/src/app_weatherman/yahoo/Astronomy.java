@@ -20,4 +20,13 @@ public class Astronomy implements IYahooWeatherItem{
 	// Public GETTERS
 	public String getSunrise(){	return sunrise;	}
 	public String getSunset(){	return sunset;	}
+	
+	// TO-STRING functions
+	public String toStringSunrise(){	return "Sunrise: " + sunrise;	}
+	public String toStringSunset(){		return "Sunset: " + sunset;		}
+	
+	public String toString()
+	{
+		return toStringSunrise() + ". " + toStringSunset() + ".";
+	}
 }

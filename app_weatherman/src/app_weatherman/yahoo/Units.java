@@ -24,4 +24,16 @@ public class Units implements IYahooWeatherItem{
 	public String getDistance(){		return distance;	}
 	public String getPressure(){		return pressure;	}
 	public String getSpeed(){			return speed;		}
+	
+	// TO-STRING methods
+	// these will most likely never be used.
+	
+	public String toStringTemperature(){	return "Temperature is measured in " + temperature;	}
+	public String toStringDistance(){		return "Distance is measured in " + distance;		}
+	public String toStringPressure(){		return "Pressure is measured in " + pressure;		}
+	public String toStringSpeed(){			return "Wind Speed is measured in " + speed;		}
+
+	public String toString(){
+		return "This YahooWeatherData object measures using: " + temperature + ", " + distance + ", " + pressure + ", and " + speed + ".";
+	}
 }
