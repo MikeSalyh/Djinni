@@ -177,7 +177,7 @@ public class YahooWeatherData {
 		myAtmosphere	= new Atmosphere( weatherReader);
 		myAstronomy		= new Astronomy( weatherReader);
 		myWeather		= new Weather( weatherReader);
-//		gatherForecast();
+		myForecast		= new FiveDayForecast( weatherReader);
 		
 		weatherReader.close();
 	}

@@ -1,20 +1,23 @@
 package app_weatherman.yahoo;
 
+import java.io.IOException;
+
 //FIVE DAY FORECAST
 //The 5-day forecast. Made up of 5 ForecastDay objects, arranged in an array.
-public class FiveDayForecast{
+public class FiveDayForecast implements IYahooWeatherItem{
 	
 	// Private VARIABLES
 	private ForecastDay[] forecastArray = new ForecastDay[5];
 	
 	// CONSTRUCTOR
-	public FiveDayForecast( ForecastDay today, ForecastDay day1, ForecastDay day2, ForecastDay day3, ForecastDay day4)
+	public FiveDayForecast( XMLReader weatherReader) throws IOException
 	{
-		forecastArray[0] = today;
-		forecastArray[1] = day1;
-		forecastArray[2] = day2;
-		forecastArray[3] = day3;
-		forecastArray[4] = day4;
+		weatherReader.readFirstInstanceOf("<BR /><b>Forecast:");
+		forecastArray[0] = new ForecastDay( weatherReader.readLine());
+		forecastArray[1] = new ForecastDay( weatherReader.readLine());
+		forecastArray[2] = new ForecastDay( weatherReader.readLine());
+		forecastArray[3] = new ForecastDay( weatherReader.readLine());
+		forecastArray[4] = new ForecastDay( weatherReader.readLine());
 	}
 	
 	// Public GETTERS.
