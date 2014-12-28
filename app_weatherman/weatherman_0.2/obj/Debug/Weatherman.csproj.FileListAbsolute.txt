@@ -1,0 +1,10 @@
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\Weatherman\bin\Debug\Weatherman.exe.config
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\bin\Debug\Weatherman.exe.config
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\bin\Debug\Weatherman.exe
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\bin\Debug\Weatherman.pdb
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\obj\Debug\Weatherman.exe
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\obj\Debug\Weatherman.pdb
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\obj\Debug\Weatherman.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\app_weatherman\Weatherman\bin\Debug\Newtonsoft.Json.xml
