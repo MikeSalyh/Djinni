@@ -12,7 +12,10 @@ import java.io.BufferedReader;
  */
 public class APIKeyReader {
 
-	// --- CONSTS & VARS ------------------------------------
+//	******************************************************
+//    					CONSTS & VARS 
+//	******************************************************
+	
 	/** 
 	 * The folder in which all API keys are held 
 	 */
@@ -29,7 +32,10 @@ public class APIKeyReader {
 	private String key;
 	
 	
-	// --- PUBLIC METHODS ----------------------------------
+//	******************************************************
+//						METHODS
+//	******************************************************
+	
 	/**
 	 * This class reads an API key from a text file.
 	 * The file should contain nothing but the key. 
@@ -55,20 +61,19 @@ public class APIKeyReader {
 		if( key != null)
 			return key;
 		else
-			return key = readKey();
+			return key = readKeyFromFile(path);
 	}
-	
-	
-	// --- PRIVATE METHODS ---------------------------------
+
 	/**
 	 * Reads the first line of the text file and returns it as a String.
 	 * 
+	 * @param filepath The absolute filepath to the text file containing the key
 	 * @return Returns the API key as a string
 	 * @throws IOException if there is an issue with the text file.
 	 */
-	private String readKey() throws IOException
+	private String readKeyFromFile(String filepath) throws IOException
 	{
-		BufferedReader textReader = new BufferedReader(new FileReader(path));
+		BufferedReader textReader = new BufferedReader(new FileReader(filepath));
 		String textData = textReader.readLine();
 		textReader.close();
 		return textData;
