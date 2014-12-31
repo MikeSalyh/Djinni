@@ -1,6 +1,7 @@
 
 import java.io.IOException;
 
+import weatherunderground.WeatherReport;
 import io.APIKeyReader;
 
 /**
@@ -23,9 +24,12 @@ public class WeatherMan {
 		
 		try{
 			String api_key = new APIKeyReader( WEATHER_UNDERGROUND_KEY_NAME).getKey();
-			WeatherUndergroundReport wur = new WeatherUndergroundReport(api_key);
+			WeatherReport wur = new WeatherReport(api_key);
 			
-			System.out.println( wur.getUserCity());
+			if( wur.wasSuccessful())
+				System.out.println( wur.getForecast(1));
+			else
+				System.out.println( wur.getErrorMessage());
 			
 		} catch( IOException e) {
 			System.out.println("Error: WeatherMan could not locate your API Key.");

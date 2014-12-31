@@ -1,13 +1,12 @@
+package weatherunderground;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonString;
 
 /**
   * This class gathers and holds weather data. 
@@ -15,7 +14,7 @@ import javax.json.JsonString;
   * 
   * @author Mike
   */
-public class WeatherUndergroundReport {
+public class WeatherReport {
 	
 //	 ******************************************************
 //	                    CONSTS & VARS 
@@ -36,7 +35,7 @@ public class WeatherUndergroundReport {
 	/** The WU API key of the user */
 	private String api_key;
 	
-	/** TRUE is this cbject has successfully connectected to the
+	/** TRUE is this cbject has successfully connected to the
 	 * WU conditions report. False by default.
 	 */
 	private Boolean successful_connection_conditions = false;
@@ -45,6 +44,12 @@ public class WeatherUndergroundReport {
 	 * WU three-day forecast. False by default
 	 */
 	private Boolean successful_connection_forecast = false;
+	
+	/**
+	 * If there is an issue connecting to, or reading from
+	 * the API, this string holds the error message.
+	 */
+	private String error_message;
 	
 //	 --- DATA VARIABLES -----------------------------------
 	/** The location of the user's IP address */
@@ -56,9 +61,15 @@ public class WeatherUndergroundReport {
 	/** The current temperature as a string, measured in Fahrenheit */
 	private String current_temp;
 	
+	/** 
+	 * An array that holds the three day forecast It has a length of
+	 * four positions, because today's data is held in position [0]. 
+	 */
+	private DayForecast[] forecast = new DayForecast[4]; 
+	
 	
 //	 ******************************************************
-//	                    PUBLIC METHODS 
+//	                  CONSTRUCTOR
 //	 ******************************************************
 	/**
 	 * This class gathers and holds weather data.
@@ -68,18 +79,42 @@ public class WeatherUndergroundReport {
 	 * @param api_key A key to the Weather Underground API.
 	 * @throws IOException 
 	 */
-	public WeatherUndergroundReport( String api_key)
+	public WeatherReport( String api_key)
 	{		
 		this.api_key = api_key;
 		
 		// Connect to the API and gather data.
 		// The gathered data is saved into this object.
+		
+		// Two calls are made to the API. The first gathers today's conditions.
 		successful_connection_conditions = gatherDataFromConditionsReport();
+		// The second gathers the three day forecast.
+		successful_connection_forecast = gatherDataFromForecastReport();
 	}
+	
 	
 //	******************************************************
 //    					GETTERS 
 //	******************************************************
+	
+	/**
+	 * Whether or not this report was successfully generated.
+	 * Always ensure that a report was successful before probing it
+	 * for information.
+	 * <p>
+	 * Unsuccessful reports do not throw exceptions. 
+	 * @return True if the report was successful. If there was an issue
+	 * connecting to or reading from the WeatherUnderground API, this
+	 * method will return false.
+	 */
+	public Boolean wasSuccessful(){
+		return successful_connection_conditions && successful_connection_forecast;
+	}
+	
+	/**If there was a connection error, this string holds it. Otherwise, null*/
+	public String getErrorMessage(){
+		return error_message;
+	}
 	
 	/** The location of the user's IP address */
 	public String getUserCity()
@@ -99,8 +134,23 @@ public class WeatherUndergroundReport {
 		return current_temp;
 	}
 	
+	/**
+	 * Get the forecast for a future day.
+	 * @param day Between 0 (today) and 3 (three days from today).
+	 * @return A DayForecast object for the requested day.
+	 * @throws IllegalArgumentException If the requested day is out of range [0-3], throws an exception.
+	 */
+	public DayForecast getForecast( int day) throws IllegalArgumentException
+	{
+		if( day < 0 || day >= forecast.length)
+			throw new IllegalArgumentException("Requested forecast is out of range. Valid range [0-" + (forecast.length-1) + "]. You said " + day);
+		
+		return forecast[day];
+	}
+	
+	
 //	******************************************************
-//   				   PRIVATE METHODS 
+//   			  DATA COLLECTING METHODS 
 //	******************************************************	
 	
 	/**
@@ -125,6 +175,55 @@ public class WeatherUndergroundReport {
 			return true;
 		} catch( IOException e) {
 			// If the API connection failed, return false
+			error_message = "Could not connect to server. " + e.toString();
+			return false;
+		}
+	}
+	
+	/**
+	 * Gathers data from the WeatherUnderground Forecast report and 
+	 * saves it into this object.
+	 * <p>
+	 * SETS THE FOLLOWING VARIABLES: user_city, current_condition, current_temp
+	 * 
+	 * @return True if the data collection was successful.
+	 */
+	private Boolean gatherDataFromForecastReport()
+	{
+		try{
+			// Connect to the API, and retrieve a conditions report
+			JsonObject obj = connectToAPI(FORECAST);
+			
+			// iterate thru the JSON array, and extract the forecast information.
+			JsonArray results = obj.getJsonObject("forecast").getJsonObject("simpleforecast").getJsonArray("forecastday");
+			for( JsonObject result : results.getValuesAs(JsonObject.class))
+			{
+				// The PERIOD represents how many days the forecast is from
+				// the current day, with 1 being today.
+				int period = result.getInt("period");
+				
+				// Since our forecast array is zero-based, we must subtract
+				// 1 from the period.
+				period -= 1;
+				
+				// before adding a DayForecast object to our forecast
+				// array, ensure that it will fit into the array.
+				if( period >= 0 && period < forecast.length)
+				{
+					// Write the three day forecast into memory
+					String day_name = result.getJsonObject("date").getString("weekday_short");
+					String condition = result.getString("conditions");
+					String high = result.getJsonObject("high").getString("fahrenheit");
+					String low = result.getJsonObject("low").getString("fahrenheit");
+					
+					forecast[period] = new DayForecast(day_name, condition, high, low);
+				}
+			}
+			
+			return true;
+		} catch( IOException e) {
+			// If the API connection failed, return false
+			error_message = "Could not connect to server. " + e.toString();
 			return false;
 		}
 	}
@@ -149,7 +248,8 @@ public class WeatherUndergroundReport {
 				break;
 			default:
 				// If the parameter is not a valid report, throw an error.
-				throw new IOException();
+				error_message = "Illegal arguement: " + report_type + ". Did not attempt to connect to the API.";
+				throw new IllegalArgumentException();
 		}
 		
 		URL url = new URL( API_REQUEST_BASE + api_key + report_type + API_REQUEST_TAIL);
@@ -159,25 +259,18 @@ public class WeatherUndergroundReport {
 		JsonReader rdr = Json.createReader(is);
 		JsonObject obj = rdr.readObject();
 		
+		// Ensure that the API key is valid
+		JsonObject validator = obj.getJsonObject("response").getJsonObject("error");
+		if( validator != null)
+		{
+			// if there is an Error Object, the report was unsuccessful.
+			String error_code = validator.getString("type");
+			error_message = "The server says: " + error_code;
+			throw new IOException(error_message);
+		}
+		
 		// Return the retrieved JSON object
 		return obj;
 	}
+
 }
-
-
-
-
-/* 
- * Example of how to read JSON:
- * 		URL url = new URL(api_request);
-		InputStream is = url.openStream();
-		JsonReader rdr = Json.createReader(is);
-		JsonObject obj = rdr.readObject();
-		
-		JsonArray results = obj.getJsonObject("forecast").getJsonObject("simpleforecast").getJsonArray("forecastday");
-		for( JsonObject result : results.getValuesAs(JsonObject.class))
-		{
-			String day = result.getJsonObject("date").getString("weekday_short");
-			System.out.println(day);
-		} 
-  */
