@@ -1,4 +1,4 @@
-package weatherunderground;
+package weatherman;
 /**
  * This class represents the weather forecast of a single day.
  * @author Mike

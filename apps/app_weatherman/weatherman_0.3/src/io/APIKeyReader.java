@@ -19,7 +19,7 @@ public class APIKeyReader {
 	/** 
 	 * The folder in which all API keys are held 
 	 */
-	private static final String ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\keys\\";
+	public static final String ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\keys\\";
 	
 	/** 
 	 * The absolute path of the API Key. Includes the root file path 
