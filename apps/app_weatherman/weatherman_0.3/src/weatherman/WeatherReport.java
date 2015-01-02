@@ -2,10 +2,12 @@ package weatherman;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Date;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 
 /**
@@ -31,6 +33,10 @@ public class WeatherReport {
 	private static final String CONDITIONS = "/conditions";
 	private static final String FORECAST = "/forecast";
 	
+// 	 --- DATA VARIABLE ------------------------------------
+	/** The date this WeatherReport was generated on */
+	private Date date;
+	
 //	 --- CONNECTION VARIABLES -----------------------------
 	/** The WU API key of the user */
 	private String api_key;
@@ -53,7 +59,7 @@ public class WeatherReport {
 	
 //	 --- DATA VARIABLES -----------------------------------
 	/** The location of the user's IP address */
-	private String user_city;
+	private String location;
 	
 	/** The current weather conditions ("Mostly clear", "Rainy", etc.) of the user's location */
 	private String current_condition;
@@ -82,6 +88,7 @@ public class WeatherReport {
 	public WeatherReport( String api_key)
 	{		
 		this.api_key = api_key;
+		this.date = new Date();
 		
 		// Connect to the API and gather data.
 		// The gathered data is saved into this object.
@@ -103,12 +110,17 @@ public class WeatherReport {
 	 * for information.
 	 * <p>
 	 * Unsuccessful reports do not throw exceptions. 
-	 * @return True if the report was successful. If there was an issue
-	 * connecting to or reading from the WeatherUnderground API, this
-	 * method will return false.
+	 * @return True if the report was successful. Returns False if 
+	 * there was an issue connecting to or reading from the 
+	 * WeatherUnderground API.
 	 */
 	public Boolean wasSuccessful(){
 		return successful_connection_conditions && successful_connection_forecast;
+	}
+	
+	/** The date and time this WeatherReport was generated */
+	public Date getDate(){
+		return date;
 	}
 	
 	/**If there was a connection error, this string holds it. Otherwise, null*/
@@ -117,9 +129,9 @@ public class WeatherReport {
 	}
 	
 	/** The location of the user's IP address */
-	public String getUserCity()
+	public String getLocation()
 	{		
-		return user_city;	
+		return location;	
 	}
 	
 	/** The current weather conditions. For example, "cloudy" or "mostly sunny"*/
@@ -168,7 +180,7 @@ public class WeatherReport {
 			JsonObject obj = connectToAPI(CONDITIONS);
 			
 			// Write the following variables to memory:
-			user_city = obj.getJsonObject("current_observation").getJsonObject("display_location").getString("full");
+			location = obj.getJsonObject("current_observation").getJsonObject("display_location").getString("full");
 			current_condition = obj.getJsonObject("current_observation").getString("weather");
 			current_temp = obj.getJsonObject("current_observation").getJsonNumber("temp_f").toString() + "°F";
 			
@@ -271,6 +283,57 @@ public class WeatherReport {
 		
 		// Return the retrieved JSON object
 		return obj;
+	}
+	
+//	******************************************************
+//	 				JSON SERIALIZATION
+//	******************************************************
+	
+	/**
+	 * @return a JSON string of the data contained within this WeatherReport.
+	 */
+	public String serialize()
+	{
+		JsonObjectBuilder builder = Json.createObjectBuilder();
+		
+		// serialize the basic information
+		builder.add("date", date.toString());
+		builder.add("successful", wasSuccessful());
+		
+		// If the weather report was gathered successfully, write
+		// that data to file.
+		if( wasSuccessful())
+		{
+			builder.add("location", getLocation());
+			builder.add("current_condition", getCurrentCondition());
+			builder.add("current_temp", getCurrentTemp());
+			
+			// serialize the forecast
+			builder.add("forecast", Json.createArrayBuilder()
+					.add(Json.createObjectBuilder()
+						.add("day_name", forecast[0].getDayName())
+						.add("condition", forecast[0].getCondition())
+						.add("high", forecast[0].getHigh())
+						.add("low", forecast[0].getLow()))
+					.add(Json.createObjectBuilder()
+						.add("day_name", forecast[1].getDayName())
+						.add("condition", forecast[1].getCondition())
+						.add("high", forecast[1].getHigh())
+						.add("low", forecast[1].getLow()))
+					.add(Json.createObjectBuilder()
+						.add("day_name", forecast[2].getDayName())
+						.add("condition", forecast[2].getCondition())
+						.add("high", forecast[2].getHigh())
+						.add("low", forecast[2].getLow()))
+					.add(Json.createObjectBuilder()
+						.add("day_name", forecast[3].getDayName())
+						.add("condition", forecast[3].getCondition())
+						.add("high", forecast[3].getHigh())
+						.add("low", forecast[3].getLow())));
+		}
+		
+		JsonObject result = builder.build();
+		return result.toString();
 	}
 
 }

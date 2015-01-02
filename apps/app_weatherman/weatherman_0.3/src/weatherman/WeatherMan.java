@@ -15,21 +15,42 @@ import io.APIKeyReader;
  */
 public class WeatherMan {
 	
+//	******************************************************
+//					TOP LEVEL DJINNI
+//	******************************************************
+	
 	/**
 	 * The version number of this application.
 	 */
-	public static final String VERSION = "0.3.0";
+	public static final String VERSION = "0.3.1";
+	
+	/**
+	 * The root folder of the Djinni Home AI System's program data
+	 */
+	public static final String ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\";
+
+	
+	
+//	******************************************************
+//					WEATHERMAN APP
+//	******************************************************
+	
 	
 	/** 
 	 * The file name of the Weather Underground API key 
 	 */
 	public static final String WEATHER_UNDERGROUND_KEY_NAME = "wu_key.txt";
 	
+	/**
+	 * The file name the WeatherReports will be saved under
+	 */
+	public static final String WEATHER_REPORT_FILE_NAME = "wu_report.txt";
+	
 	/** 
 	 * Key to the WeatherUnderground API. It is read from a text file.
 	 * @see APIKeyReader
 	 */
-	public static String api_key;
+	private static String api_key;
 	
 	public static void main(String[] args) throws InterruptedException{
 		System.out.println("*** WEATHERMAN APP " + VERSION + " ***");
@@ -48,7 +69,7 @@ public class WeatherMan {
 			// If the API key can not be loaded, log it in the console. 
 			// Note that the timer is not started, and URL connection is never attempted.
 			System.out.println("Error: WeatherMan could not locate your API Key.");
-			System.out.println("The API Key should be stored in " + APIKeyReader.ROOT_FILE_PATH + WEATHER_UNDERGROUND_KEY_NAME);
+			System.out.println("The API Key should be stored in " + ROOT_FILE_PATH + WEATHER_UNDERGROUND_KEY_NAME);
 		}
 	}
 }

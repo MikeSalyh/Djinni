@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
+import weatherman.WeatherMan;
+
 /**
  * This class reads an API key from a .txt file
  * 
@@ -19,7 +21,7 @@ public class APIKeyReader {
 	/** 
 	 * The folder in which all API keys are held 
 	 */
-	public static final String ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\keys\\";
+	public static final String KEY_FOLDER = "keys\\";
 	
 	/** 
 	 * The absolute path of the API Key. Includes the root file path 
@@ -44,7 +46,7 @@ public class APIKeyReader {
 	 */
 	public APIKeyReader( String file_name)
 	{
-		path = ROOT_FILE_PATH + file_name;
+		path = WeatherMan.ROOT_FILE_PATH + KEY_FOLDER + file_name;
 	}
 	
 	/**
