@@ -191,7 +191,7 @@ public class WeatherReport {
 			// Write the following variables to memory:
 			location = obj.getJsonObject("current_observation").getJsonObject("display_location").getString("full");
 			current_condition = obj.getJsonObject("current_observation").getString("weather");
-			current_temp = obj.getJsonObject("current_observation").getJsonNumber("temp_f").toString() + "°";
+			current_temp = obj.getJsonObject("current_observation").getJsonNumber("temp_f").toString();
 			current_icon = obj.getJsonObject("current_observation").getString("icon");
 			
 			return true;

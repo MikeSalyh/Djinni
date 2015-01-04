@@ -76,8 +76,8 @@ public class DayForecast {
 	{
 		this.day_name = day_name;
 		this.condition = condition;
-		this.high = high + "°";
-		this.low = low + "°";
+		this.high = high;
+		this.low = low;
 		this.icon = icon;
 	}
 	
