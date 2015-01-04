@@ -15,6 +15,8 @@ import io.APIKeyReader;
  */
 public class WeatherMan {
 	
+	// TODO: Failed connection calls should try again, fast.
+	
 //	******************************************************
 //					TOP LEVEL DJINNI
 //	******************************************************

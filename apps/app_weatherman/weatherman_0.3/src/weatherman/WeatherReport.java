@@ -67,6 +67,9 @@ public class WeatherReport {
 	/** The current temperature as a string, measured in Fahrenheit */
 	private String current_temp;
 	
+	/** The current condition icon, displayed by the UI */
+	private String current_icon;
+	
 	/** 
 	 * An array that holds the three day forecast It has a length of
 	 * four positions, because today's data is held in position [0]. 
@@ -146,6 +149,12 @@ public class WeatherReport {
 		return current_temp;
 	}
 	
+	/** The current condition icon, displayed by the UI */
+	public String getCurrentIcon()
+	{
+		return current_icon;
+	}
+	
 	/**
 	 * Get the forecast for a future day.
 	 * @param day Between 0 (today) and 3 (three days from today).
@@ -182,7 +191,8 @@ public class WeatherReport {
 			// Write the following variables to memory:
 			location = obj.getJsonObject("current_observation").getJsonObject("display_location").getString("full");
 			current_condition = obj.getJsonObject("current_observation").getString("weather");
-			current_temp = obj.getJsonObject("current_observation").getJsonNumber("temp_f").toString() + "°F";
+			current_temp = obj.getJsonObject("current_observation").getJsonNumber("temp_f").toString() + "°";
+			current_icon = obj.getJsonObject("current_observation").getString("icon");
 			
 			return true;
 		} catch( IOException e) {
@@ -227,8 +237,9 @@ public class WeatherReport {
 					String condition = result.getString("conditions");
 					String high = result.getJsonObject("high").getString("fahrenheit");
 					String low = result.getJsonObject("low").getString("fahrenheit");
+					String icon = result.getString("icon");
 					
-					forecast[period] = new DayForecast(day_name, condition, high, low);
+					forecast[period] = new DayForecast(day_name, condition, high, low, icon);
 				}
 			}
 			
@@ -307,6 +318,7 @@ public class WeatherReport {
 			builder.add("location", getLocation());
 			builder.add("current_condition", getCurrentCondition());
 			builder.add("current_temp", getCurrentTemp());
+			builder.add("icon", getCurrentIcon());
 			
 			// serialize the forecast
 			builder.add("forecast", Json.createArrayBuilder()
@@ -314,22 +326,26 @@ public class WeatherReport {
 						.add("day_name", forecast[0].getDayName())
 						.add("condition", forecast[0].getCondition())
 						.add("high", forecast[0].getHigh())
-						.add("low", forecast[0].getLow()))
+						.add("low", forecast[0].getLow())
+						.add("icon", forecast[0].getIcon()))
 					.add(Json.createObjectBuilder()
 						.add("day_name", forecast[1].getDayName())
 						.add("condition", forecast[1].getCondition())
 						.add("high", forecast[1].getHigh())
-						.add("low", forecast[1].getLow()))
+						.add("low", forecast[1].getLow())
+						.add("icon", forecast[1].getIcon()))
 					.add(Json.createObjectBuilder()
 						.add("day_name", forecast[2].getDayName())
 						.add("condition", forecast[2].getCondition())
 						.add("high", forecast[2].getHigh())
-						.add("low", forecast[2].getLow()))
+						.add("low", forecast[2].getLow())
+						.add("icon", forecast[2].getIcon()))
 					.add(Json.createObjectBuilder()
 						.add("day_name", forecast[3].getDayName())
 						.add("condition", forecast[3].getCondition())
 						.add("high", forecast[3].getHigh())
-						.add("low", forecast[3].getLow())));
+						.add("low", forecast[3].getLow())
+						.add("icon", forecast[3].getIcon())));
 		}
 		
 		JsonObject result = builder.build();

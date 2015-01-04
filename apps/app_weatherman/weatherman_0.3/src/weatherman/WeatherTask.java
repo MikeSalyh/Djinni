@@ -113,7 +113,7 @@ public class WeatherTask extends TimerTask {
 			report_writer.writeWeatherReport(weather_report);
 			System.out.println("[WeatherReport successfully written to " + report_writer.getFilePath() + " ]");
 		} catch (IOException e){
-			// If there was an error writting the report to file,
+			// If there was an error writing the report to file,
 			// log it in the console.
 			System.out.println("Error writting weather report to file:");
 			System.out.println( e.getMessage());

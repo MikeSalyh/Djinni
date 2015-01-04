@@ -23,6 +23,9 @@ public class DayForecast {
 	/** The daily low temp, measured in Fahrenheit */
 	private String low;
 	
+	/** The icon that the UI will display */
+	private String icon;
+	
 //	******************************************************
 //	 				GETTERS 
 //	******************************************************
@@ -50,6 +53,12 @@ public class DayForecast {
 	{
 		return low;
 	}
+	
+	/** The icon that the UI will display */
+	public String getIcon()
+	{
+		return icon;
+	}
 
 //	******************************************************
 //				 METHODS 
@@ -63,12 +72,13 @@ public class DayForecast {
 	 * @param high The daily high temp in Fahrenheit, as a String. Do not add degrees symbol.
 	 * @param low The daily low temp in Fahrenheit, as a String. Do not add degrees symbol.
 	 */
-	public DayForecast( String day_name, String condition, String high, String low)
+	public DayForecast( String day_name, String condition, String high, String low, String icon)
 	{
 		this.day_name = day_name;
 		this.condition = condition;
-		this.high = high + "°F";
-		this.low = low + "°F";
+		this.high = high + "°";
+		this.low = low + "°";
+		this.icon = icon;
 	}
 	
 	public String toString()
