@@ -2,6 +2,7 @@ package weatherman;
 import java.util.Timer;
 import java.io.IOException;
 
+import io.OsUtils;
 import io.APIKeyReader;
 
 /**
@@ -29,9 +30,14 @@ public class WeatherMan {
 	/**
 	 * The root folder of the Djinni Home AI System's program data
 	 */
-	public static final String ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\";
-
+	public static final String win_ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\";
+	public static final String mac_ROOT_FILE_PATH = "\\Applications\\Djinni\\";
 	
+	/**
+	 * The root folder of the Djinni Home AI System.
+	 * Set after the OS has been determined.
+	 */
+	public static String ROOT_FILE_PATH;
 	
 //	******************************************************
 //					WEATHERMAN APP
@@ -58,6 +64,18 @@ public class WeatherMan {
 		System.out.println("*** WEATHERMAN APP " + VERSION + " ***");
 		System.out.println("");
 		
+		// Check the operating system, and choose the correct filepath:
+		if( OsUtils.isWindows()) 
+		{
+			ROOT_FILE_PATH = win_ROOT_FILE_PATH;
+		} else if( OsUtils.isMac()) {
+			ROOT_FILE_PATH = mac_ROOT_FILE_PATH;
+		} else {
+			// If the user's operating system is not supported, go no further.
+			System.out.println("**ERROR: Unsupported Operating System");
+			return;
+		}
+			
 		try{
 			// Get the API key from the Djinni Program Data folder
 			api_key = new APIKeyReader( WEATHER_UNDERGROUND_KEY_NAME).getKey();

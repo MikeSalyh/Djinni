@@ -6,6 +6,8 @@
 	import flash.events.IOErrorEvent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	import flash.display.StageDisplayState;
+	import flash.system.Capabilities;
 
 	/** 
 	* The main class for the Flash Weatherman component.
@@ -39,18 +41,16 @@
 		// *****************************************************
 		
 		public static const PROGRAM_NAME:String = "Djinni Home AI";
-		public static const VERSION:String = "v.0.1";
+		public static const VERSION:String = "v.0.3.1";
 		
 		/** This points to C:// on a windows machine.
-		* TODO: Test this on Mac, and see where it goes.
+		* Points to / on mac.
 		*/
 		public var ROOT_FILE_PATH:String = (File.getRootDirectories()[0] as File).url;
 		
 		/** The directory where all Djinni application data is held.  */
-		public const PROGRAM_DATA_DIRECTORY:String = "ProgramData/Djinni/app_data/";
-		
-		
-		
+		public const win_PROGRAM_DATA_DIRECTORY:String = "ProgramData/Djinni/app_data/";
+		public const mac_PROGRAM_DATA_DIRECTORY:String = "Applications/Djinni/app_data/";
 		
 		// *****************************************************
 		// 						WEATHERMAN
@@ -58,14 +58,14 @@
 		
 		// --- VARS & CONSTS -----------------------------------
 		
+		// This string points the location of the weather report text file.
+		private var report_location:String;
+			
 		// The directory where the WeatherMan app's data is held.
 		public static const WEATHERMAN_FOLDER:String = "weatherman/";
-
+		
 		// The file name of the weather report text file.
 		public static const WEATHER_REPORT_FILE_NAME:String = "wu_report.txt";
-		
-		// This string points the location of the weather report text file.
-		private var report_location:String = ROOT_FILE_PATH + PROGRAM_DATA_DIRECTORY + WEATHERMAN_FOLDER + WEATHER_REPORT_FILE_NAME;
 		
 		// The footer begins with this, and ends with a timestamp.
 		private static const REPORT_FOOTER:String = "This report was generated ";
@@ -99,12 +99,27 @@
 			// set the version number
 			version.versionNumber.text = PROGRAM_NAME + " " + VERSION;
 			
+			// Start the program in safe mode.
+			enterSafeMode();
+			
+			try{
+				// Ensure that the operating system is valid, and perform all necessary actions on it.
+				performOSExclusiveActions();
+			} catch( e:Error) {
+				// If the operating system is unsupported, do not try to read reports
+				trace("**Your Operating system is not supported. Djinni is Windows/Mac only");
+				if( errorMessage == null)
+					errorMessage = "Unsupported Operating System.";
+				enterErrorMode();
+				return;
+			}
+			
+			// Start the program in fullscreen
+			stage.displayState = StageDisplayState.FULL_SCREEN; 
+			
 			// Set up listeners for after a report is read
 			addEventListener( SUCCESSFUL_READ_REPORT, displayReport);
 			addEventListener( UNSUCCESSFUL_READ_REPORT, enterErrorMode);
-			
-			// Start the program in safe mode.
-			enterSafeMode();
 			
 			// The report timer will go off once every minute, and update the report.
 			reportTimer = new Timer( 60000, 0);
@@ -113,7 +128,25 @@
 			
 			// And one load report on start-up.
 			loadReport();
-			
+		}
+		
+		/** This method does any action that is Operating-System dependent.
+		* @throws Error if the user's OS is unsupported, or an operation fails */
+		private function performOSExclusiveActions():void
+		{
+			// Calculate the filepath to report file, based on the user's OS:
+			if((Capabilities.os.indexOf("Windows") >= 0))
+			{
+				 // in windows
+				 report_location = ROOT_FILE_PATH + win_PROGRAM_DATA_DIRECTORY + WEATHERMAN_FOLDER + WEATHER_REPORT_FILE_NAME
+			}
+			else if((Capabilities.os.indexOf("Mac") >= 0)){
+				// in mac
+				report_location = ROOT_FILE_PATH + mac_PROGRAM_DATA_DIRECTORY + WEATHERMAN_FOLDER + WEATHER_REPORT_FILE_NAME; 
+			} else {
+				// Throw an error if neither Windows or Mac. Linux support may come later...
+				throw new Error("Bad OS");
+			}
 		}
 		
 		// --- REPORT LOADING, READING & PARSING ----------------------------
@@ -221,7 +254,7 @@
 			} else {
 				// Unsuccessful reports are automatically returned false
 				if( errorMessage == null)
-					errorMessage = "Failed to connect to WeatherUnderground API.";
+					errorMessage = "Failed Internet Connection.";
 				return false;
 			}
 		}
