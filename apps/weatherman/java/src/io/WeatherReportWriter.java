@@ -22,9 +22,14 @@ public class WeatherReportWriter {
 //	******************************************************
 	
 	/** 
-	 * The local folder in which WeatherData is held 
+	 * The local folder in which all App data is held 
 	 */
-	public static final String APP_FILE_FOLDER = "app_data\\weatherman\\";
+	public static final String APP_FILE_FOLDER = "app_data";
+	
+	/** 
+	 * The local folder in which all WeatherMan data is held 
+	 */
+	public static final String WEATHERMAN_FOLDER = "weatherman";
 	
 	/** 
 	 * The absolute path of the API Key. Includes the root file path 
@@ -52,7 +57,7 @@ public class WeatherReportWriter {
 	 */
 	public WeatherReportWriter(String file_name)
 	{
-		path = WeatherMan.ROOT_FILE_PATH + APP_FILE_FOLDER + file_name;
+		path = WeatherMan.ROOT_FILE_PATH + WeatherMan.SLASH + APP_FILE_FOLDER + WeatherMan.SLASH + WEATHERMAN_FOLDER + WeatherMan.SLASH + file_name;
 	}
 	
 	
@@ -76,7 +81,7 @@ public class WeatherReportWriter {
 		{
 			// The root file directory is valid. Then, check if a WeatherMan folder exists.
 			// If one doesn't, create it.
-			File weatherman_folder = new File(WeatherMan.ROOT_FILE_PATH + APP_FILE_FOLDER);
+			File weatherman_folder = new File(WeatherMan.ROOT_FILE_PATH + WeatherMan.SLASH + APP_FILE_FOLDER);
 			if( !weatherman_folder.exists())
 				weatherman_folder.mkdirs();
 			

@@ -21,7 +21,7 @@ public class APIKeyReader {
 	/** 
 	 * The folder in which all API keys are held 
 	 */
-	public static final String KEY_FOLDER = "keys\\";
+	public static final String KEY_FOLDER = "keys";
 	
 	/** 
 	 * The absolute path of the API Key. Includes the root file path 
@@ -46,7 +46,7 @@ public class APIKeyReader {
 	 */
 	public APIKeyReader( String file_name)
 	{
-		path = WeatherMan.ROOT_FILE_PATH + KEY_FOLDER + file_name;
+		path = WeatherMan.ROOT_FILE_PATH + WeatherMan.SLASH + KEY_FOLDER + WeatherMan.SLASH + file_name;
 	}
 	
 	/**

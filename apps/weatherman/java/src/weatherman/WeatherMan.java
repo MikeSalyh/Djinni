@@ -30,14 +30,17 @@ public class WeatherMan {
 	/**
 	 * The root folder of the Djinni Home AI System's program data
 	 */
-	public static final String win_ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\";
-	public static final String mac_ROOT_FILE_PATH = "\\Applications\\Djinni\\";
+	public static final String win_ROOT_FILE_PATH = "C:\\ProgramData\\Djinni";
+	public static final String mac_ROOT_FILE_PATH = "/Applications/Djinni";
 	
 	/**
 	 * The root folder of the Djinni Home AI System.
 	 * Set after the OS has been determined.
 	 */
 	public static String ROOT_FILE_PATH;
+	
+	/** Backslash for windows, forwardslash for mac */
+	public static String SLASH = "\\";
 	
 //	******************************************************
 //					WEATHERMAN APP
@@ -68,8 +71,10 @@ public class WeatherMan {
 		if( OsUtils.isWindows()) 
 		{
 			ROOT_FILE_PATH = win_ROOT_FILE_PATH;
+			SLASH = "\\";
 		} else if( OsUtils.isMac()) {
 			ROOT_FILE_PATH = mac_ROOT_FILE_PATH;
+			SLASH = "/";
 		} else {
 			// If the user's operating system is not supported, go no further.
 			System.out.println("**ERROR: Unsupported Operating System");
@@ -89,7 +94,7 @@ public class WeatherMan {
 			// If the API key can not be loaded, log it in the console. 
 			// Note that the timer is not started, and URL connection is never attempted.
 			System.out.println("Error: WeatherMan could not locate your API Key.");
-			System.out.println("The API Key should be stored in " + ROOT_FILE_PATH + WEATHER_UNDERGROUND_KEY_NAME);
+			System.out.println("The API Key should be stored in " + ROOT_FILE_PATH + SLASH + APIKeyReader.KEY_FOLDER + SLASH + WEATHER_UNDERGROUND_KEY_NAME);
 		}
 	}
 }
