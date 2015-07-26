@@ -1,6 +1,9 @@
-C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
-C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
-C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
-C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
-C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
 C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\obj\Debug\Djinni.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\Djinni.exe.config
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\Djinni.exe
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\Djinni.pdb
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\obj\Debug\Djinni.exe
+C:\Users\Mike\Dropbox\Home Automation\Djinni.git\apps\weatherman\weatherman_0.4\Weatherman\ConsoleApplication1\obj\Debug\Djinni.pdb

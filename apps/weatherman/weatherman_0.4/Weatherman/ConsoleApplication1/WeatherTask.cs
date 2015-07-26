@@ -14,7 +14,7 @@ namespace Djinni
         #region Variables
 
         // How ofteh tne WeatherReports are generated. 20 minutes in miliseconds.
-        public const int INTERVAL = 2000; //1200000;
+        public const int INTERVAL = 1200000;
 
         // The key to access the WU API
         private String api_key;
@@ -63,8 +63,7 @@ namespace Djinni
         /// <param name="weather_report"></param>
         private void printWeatherReport(WeatherReport weather_report)
         {
-            // TODO: Write this method.
-            Console.WriteLine("Printing weather report...");
+            weather_report.print();
         }
 
         #endregion

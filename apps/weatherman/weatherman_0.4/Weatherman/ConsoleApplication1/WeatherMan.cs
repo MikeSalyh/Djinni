@@ -55,9 +55,8 @@ namespace Djinni
                 api_key = new APIKeyReader(WEATHER_UNDERGROUND_KEY_NAME).getKey();
 
                 // Set a recurring task to gather weather data on a fixed interval
-                // TODO: this.
-
                 weather_task = new WeatherTask( api_key);
+                weather_task.run(); // immediately run the weather task.
 
                 // Create a timer with a two second interval.
                 aTimer = new System.Timers.Timer(WeatherTask.INTERVAL);
@@ -65,10 +64,6 @@ namespace Djinni
                 // Hook up the Elapsed event for the timer. 
                 aTimer.Elapsed += weather_task.run;
                 aTimer.Enabled = true;
-
-                Console.WriteLine("Press the Enter key to exit the program... ");
-                Console.ReadLine();
-                Console.WriteLine("Terminating the application...");
             }
             catch (Exception e)
             {
@@ -77,11 +72,14 @@ namespace Djinni
                 Console.WriteLine("Error: WeatherMan could not locate your API key");
                 Console.WriteLine(e.Message);
                 Console.WriteLine("The API Key should be stored in " + ROOT_FILE_PATH + APIKeyReader.KEY_FOLDER + WEATHER_UNDERGROUND_KEY_NAME);
-                Console.WriteLine("");
-                Console.WriteLine("Press ENTER to terminate.");
-                Console.ReadLine();
-                Console.WriteLine("Terminating the application...");
             }
+
+
+            // Termination code:
+            Console.WriteLine("");
+            Console.WriteLine("Press the Enter key to exit the program... ");
+            Console.ReadLine();
+            Console.WriteLine("Terminating the application...");
         }
 
         #endregion

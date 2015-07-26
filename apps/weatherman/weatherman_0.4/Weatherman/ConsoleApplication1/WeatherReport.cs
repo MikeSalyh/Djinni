@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Djinni
 {
@@ -176,11 +178,16 @@ namespace Djinni
             {
                 // connect to API and grab data as a JSON object
                 // write that data into my variables
+                dynamic obj = connectToAPI(CONDITIONS);
+                location = obj.current_observation.display_location.full;
+                current_condition = obj.current_observation.weather;
+                current_temp = obj.current_observation.temp_f;
+                current_icon = obj.current_observation.icon;
                 return true;
             }
             catch (Exception e)
             {
-                error_message = "Could not connect to server." + e.Message;
+                error_message = e.Message;
                 return false;
             }
         }
@@ -196,15 +203,105 @@ namespace Djinni
             {
                 // connect to API and grab JSON data
                 // use a loop to write that into the forecast
+                dynamic obj = connectToAPI(FORECAST);
+
+                JArray results = obj.forecast.simpleforecast.forecastday;
+                foreach( dynamic result in results)
+                {
+                    if( result.period != null)
+                    {
+                        // The period represents how many days the forecast is from the current day, with 1 being today.
+                        int period = result.period;
+                        
+                        // Since our forecast array is zero-based, we must subtract 1 from the period.
+                        period -= 1;
+
+                        // Before adding a DayForecast object into the array, ensure it will fit into the array:
+                        if( period >= 0 && period < forecast.Length)
+                        {
+                            String day_name = result.date.weekday_short;
+                            String condition = result.conditions;
+                            String high = result.high.fahrenheit;
+                            String low = result.low.fahrenheit;
+                            String icon = result.icon;
+
+                            forecast[period] = new DayForecast(day_name, condition, high, low, icon);
+                        }
+                    }
+
+                }
                 return true;
             }
             catch (Exception e)
             {
-                error_message = "Could not connect to server." + e.Message;
+                error_message = e.Message;
                 return false;
             }
         }
 
+        /// <summary>
+        /// Connects to the WeatherUnderground API, and returns a JSON object containing the requested weather report.
+        /// </summary>
+        /// <param name="report_type">The tye of report. Use CONDITIONS or FORECAST. Anything else will throw an exception</param>
+        /// <returns>A JSON object containing the requested information</returns>
+        /// <exception cref="System.ArgumentException ">Throws an exception if the param is invalid</exception>
+        private dynamic connectToAPI(String report_type)
+        {
+            // First, ensure that the parameter is a valid type of report:
+            switch (report_type)
+            {
+                case CONDITIONS:
+                case FORECAST:
+                    break;
+                default:
+                    error_message = String.Format("Illegal arguement: {0}. Did not attempt API connection.", report_type);
+                    throw new ArgumentException(error_message);
+            }
+
+            using (var webClient = new System.Net.WebClient())
+            {
+                var URL = API_REQUEST_HEAD + api_key + report_type + API_REQUEST_TAIL;
+                var json = webClient.DownloadString(URL);
+                return JsonConvert.DeserializeObject(json);
+            }
+        }
+
+        #endregion
+
+
+        #region Print Methods
+
+        /// <summary>
+        /// Prints out the contents of this weather report to the console.
+        /// </summary>
+        public void print()
+        {
+            if( wasSuccessful())
+            {
+                // If the weather report was successful, log it into the console
+                Console.WriteLine(getLocation());
+                Console.WriteLine(getCurrentConditions() + ". " + getCurrentTemp());
+                Console.WriteLine("");
+                for( var i = 0; i < forecast.Length; i++)
+                {
+                    Console.WriteLine(forecast[i].toString());
+                }
+            }
+            else
+            {
+                // If there was an error generating the report, log it into the console.
+                // This is not exceptional behavior.
+                Console.WriteLine("Error generating Weather Report.");
+                Console.WriteLine(getErrorMessage());
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Timestamp: " + getDate());
+
+            // Add buffer between reports
+            Console.WriteLine("************************************");
+        }
+        
         #endregion
 
     }
