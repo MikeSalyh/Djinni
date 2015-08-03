@@ -1,30 +1,31 @@
 ﻿using System;
-using System.Speech.Synthesis;
 
-namespace SampleSynthesis
+namespace Module.Vox
 {
     class Program
     {
         static void Main(string[] args)
         {
+            // This is a defunct main class. I'm not sure how to exclude it from the DLL yet.
+            // -Mike, 8/2/2015
 
-            // Initialize a new instance of the SpeechSynthesizer.
-            SpeechSynthesizer synth = new SpeechSynthesizer();
-
-            Console.WriteLine("Enter something for me to say:");
+            // For testing purposes:
+            /*Console.WriteLine("Enter something for me to say:");
             Console.WriteLine();
             String myLine = Console.ReadLine();
 
-            // Configure the audio output. 
-            synth.SetOutputToDefaultAudioDevice();
-            synth.SelectVoice("Microsoft Zira Desktop");
+            Vox vox = new Vox();
 
             // Speak a string asynchronously.
-            synth.SpeakAsync(myLine);
+            vox.Queue(myLine);
+            vox.Queue("This is a low priority line.", Vox.Priority.low);
+            vox.Queue("jam on toast.");
+            vox.Queue("This is a high priority line.", Vox.Priority.high);
+            vox.Clear();
 
             Console.WriteLine();
             Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+            Console.ReadKey();*/
         }
     }
 }

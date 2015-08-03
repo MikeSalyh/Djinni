@@ -1,0 +1,5 @@
+C:\Users\Mike\Documents\Home Automation\Djinni.git\modules\vox\Vox_0.1\Vox_0.1\bin\Debug\Vox_0.1.exe.config
+C:\Users\Mike\Documents\Home Automation\Djinni.git\modules\vox\Vox_0.1\Vox_0.1\bin\Debug\Vox_0.1.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\modules\vox\Vox_0.1\Vox_0.1\bin\Debug\Vox_0.1.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\modules\vox\Vox_0.1\Vox_0.1\obj\Debug\Vox_0.1.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\modules\vox\Vox_0.1\Vox_0.1\obj\Debug\Vox_0.1.pdb
