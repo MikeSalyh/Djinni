@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Djinni
+namespace Djinni.Apps.WeatherManApp
 {
     class DayForecast
     {

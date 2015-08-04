@@ -10,10 +10,6 @@ namespace Djinni
     {
 
 #region Conts & Vars
-
-        // The folder in which all API keys are held.
-        public const String KEY_FOLDER = "keys\\";
-
         // The absolute path of the API key. Includes the root filepath.
         private String path;
 
@@ -28,9 +24,9 @@ namespace Djinni
         /// The text file must contain nothing but the key.
         /// </summary>
         /// <param name="file_name">The name of the .txt file to read.</param>
-        public APIKeyReader( String file_name)
+        public APIKeyReader( String file_path, String file_name)
         {
-           path = WeatherMan.ROOT_FILE_PATH + APIKeyReader.KEY_FOLDER + file_name;
+           path = file_path + file_name;
         }
 
         /// <summary>

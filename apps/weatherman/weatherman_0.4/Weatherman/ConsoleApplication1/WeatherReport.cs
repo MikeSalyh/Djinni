@@ -5,7 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Djinni
+namespace Djinni.Apps.WeatherManApp
 {
      /// <summary>
      /// This class gathers and holds weather data.
@@ -67,8 +67,8 @@ namespace Djinni
 
         #region Constructor
         /// <summary>
-        /// This class gathers and holds weather data.
-        /// All information comes from the WeatherUnderground API, using the location of the user's IP address.
+        /// This class gathers and holds weather data. All information comes from the WeatherUnderground API, using the location of the user's IP address.
+        /// <para/>Creating a report makes 2 calls to the WU API. The API can handle a max of 10 calls/min, and 500 calls/day. 
         /// </summary>
         /// <param name="api_key">A key to the WU API</param>
         /// <exception cref="System.IO.IOException"></exception>
@@ -300,6 +300,25 @@ namespace Djinni
 
             // Add buffer between reports
             Console.WriteLine("************************************");
+        }
+
+        /// <summary>
+        /// Converts the WeatherReport into a speakable string, and returns it.
+        /// </summary>
+        /// <returns>A version of the report that can be easily spoken in English.</returns>
+        override public String ToString()
+        {
+            if( wasSuccessful())
+            {
+                // If the weather report was successful, speak it.
+                return String.Format("The weather in {0} is {1} degrees Fahrenheit, {2}. Today's high will be {3} degrees. Today's low will be {4} degrees.",
+                    getLocation(), getCurrentTemp(), getCurrentConditions(), getForecast(0).getHigh(), getForecast(0).getLow());
+            }
+            else
+            {
+                // If there was an error generating the report, speak it.
+                return "There was an error generating this WeatherReport. Check the console for details.";
+            }
         }
         
         #endregion

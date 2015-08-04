@@ -3,85 +3,97 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
+using System.IO;
 
-namespace Djinni
+using Module.Vox;
+
+namespace Djinni.Apps.WeatherManApp
 {
     class WeatherMan
     {
-
-        #region Djinni - Top Level
-        // *********************************************
-        //  TOP LEVEL DJINNI
-        // *********************************************
-
-        // The version number of this application
-        public const String VERSION = "0.4.0";
-
-        // The root folder of the Djinni Home AI System
-        public const String ROOT_FILE_PATH = "C:\\ProgramData\\Djinni\\";
-        #endregion
-
-        #region Weatherman
-        // *********************************************
-        //  WEATHERMAN APP
-        // *********************************************
-
-        // The filename of the Weather Underground API Key.
-        public const String WEATHER_UNDERGROUND_KEY_NAME = "wu_key.txt";
-
-        // Key to the WU API. It read from a textfile.
-        private static String api_key;
-
-        // An async timer that gathers the weather data.
-        private static Timer aTimer;
-
-        private static WeatherTask weather_task;
-
+        #region Vars & Consts 
+        /// <summary>
+        /// The version of this app.
+        /// </summary>
+        public const String VERSION = "0.4.1";    
 
         /// <summary>
-        /// Main class of the Weatherman App.
+        ///  Key to the WU API.
         /// </summary>
-        /// <param name="args"></param>
-        static void Main(string[] args)
-        {
-            System.Console.WriteLine("*** WEATHERMAN APP " + VERSION + " ***");
-            System.Console.WriteLine("");
+        private String api_key;
 
-            
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Create a Weatherman app. This app is capable of gathering weather data, and speaking it to the user.
+        /// </summary>
+        /// <param name="vox">Module in charge of voice out.</param>
+        /// <param name="API_key_filepath">The folder which contains the WeatherUnderground API key.</param>
+        /// <param name="API_key_filename">The name of the non-encrypted text file which contains the WeatherUnderground API key.</param>
+        public WeatherMan(String API_key_filepath, String API_key_filename)
+        {
+            System.Console.WriteLine("Loading App: WeatherMan v{0}", VERSION);
+            System.Console.WriteLine("    Reading API Key...");
+
             try
             {
                 // Get the API key from the Djinni Program Data folder
-                api_key = new APIKeyReader(WEATHER_UNDERGROUND_KEY_NAME).getKey();
-
-                // Set a recurring task to gather weather data on a fixed interval
-                weather_task = new WeatherTask( api_key);
-                weather_task.run(); // immediately run the weather task.
-
-                // Create a timer with a two second interval.
-                aTimer = new System.Timers.Timer(WeatherTask.INTERVAL);
-
-                // Hook up the Elapsed event for the timer. 
-                aTimer.Elapsed += weather_task.run;
-                aTimer.Enabled = true;
+                api_key = new APIKeyReader(API_key_filepath, API_key_filename).getKey();
+                System.Console.WriteLine("    API key found.");
+                System.Console.WriteLine("    App loaded successfully.");
             }
             catch (Exception e)
             {
-                // If the API key cannot be read, log the error in the console.
+                // If the API key cannot be read, log the error in the console and throws an error.
                 // Note, that a URL connection is never attempted.
-                Console.WriteLine("Error: WeatherMan could not locate your API key");
-                Console.WriteLine(e.Message);
-                Console.WriteLine("The API Key should be stored in " + ROOT_FILE_PATH + APIKeyReader.KEY_FOLDER + WEATHER_UNDERGROUND_KEY_NAME);
+                String errorMessage = "WeatherMan could not locate your API key.";
+                Console.WriteLine("    Error: {0}", errorMessage);
+                Console.WriteLine("    {0}", e.Message);
+                System.Console.WriteLine("    App could not be loaded.");
+                throw new IOException(errorMessage);
             }
-
-
-            // Termination code:
-            Console.WriteLine("");
-            Console.WriteLine("Press the Enter key to exit the program... ");
-            Console.ReadLine();
-            Console.WriteLine("Terminating the application...");
         }
 
+        /// <summary>
+        /// Create a Weatherman app. This app is capable of gathering weather data, and speaking it to the user.
+        /// </summary>
+        /// <param name="vox">Module in charge of voice out.</param>
+        /// <param name="API_key">String of the WeatherUnderground API key.</param>
+        public WeatherMan(String API_key)
+        {
+            System.Console.WriteLine("Loading App: WeatherMan v{0}", VERSION);
+            api_key = API_key;
+            System.Console.WriteLine("    App loaded successfully.");
+        }
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Creates a WeatherReport in the console, by pinging the WeatherUnderground API.
+        /// <para/>This method makes 2 calls to the WU API. The API can handle up to 10 calls/min, and 500 calls/day.
+        /// </summary>
+        public void CreateWeatherReport()
+        {
+            WeatherReport myReport = new WeatherReport(api_key);
+            myReport.print();
+        }
+
+        /// <summary>
+        /// Creates a WeatherReport, spoken out loud, and logged in the console, by pinging the WeatherUnderground API.
+        /// <para/>This method makes 2 calls to the WU API. The API can handle up to 10 calls/min, and 500 calls/day.
+        /// </summary>
+        /// <param name="vox">A Vox module, that will speak the report.</param>
+        public void CreateWeatherReport(Vox vox)
+        {
+            WeatherReport myReport = new WeatherReport(api_key);
+            
+            // print the report into the console.
+            myReport.print();
+
+            // speak the line over the Vox.
+            vox.Queue(myReport.ToString());
+        }
         #endregion
     }
 }
