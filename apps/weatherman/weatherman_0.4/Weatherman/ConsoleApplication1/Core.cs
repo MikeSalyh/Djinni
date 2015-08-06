@@ -65,9 +65,9 @@ namespace Djinni
             try
             {
                 System.Console.WriteLine("Initiating Apps...");
-            
-                App_Weatherman = new WeatherMan(KEY_FILE_PATH, WEATHER_UNDERGROUND_KEY_NAME);
-                
+
+                App_Weatherman = new WeatherMan(new APIKeyReader(KEY_FILE_PATH, WEATHER_UNDERGROUND_KEY_NAME).getKey());
+
                 // All aps have successfully initiated.
                 System.Console.WriteLine("All apps initiated.");
                 System.Console.WriteLine("");
@@ -76,18 +76,23 @@ namespace Djinni
             {
                 System.Console.WriteLine();
                 System.Console.WriteLine();
+                System.Console.WriteLine(e.Message);
                 System.Console.WriteLine("All apps could not be initiated. Program will now terminate.");
                 System.Console.WriteLine("Press RETURN to continue.");
                 System.Console.ReadLine();
                 return;
             }
 
-           
 
-
-
+            // Core Actions. 
             App_Weatherman.CreateWeatherReport(Mod_Vox);
 
+
+            // Terminator
+            System.Console.WriteLine();
+            System.Console.WriteLine("********");
+            System.Console.WriteLine("Djinni core is running stably.");
+            System.Console.WriteLine("Press ENTER to terminate.");
             System.Console.ReadLine();
         }
     }

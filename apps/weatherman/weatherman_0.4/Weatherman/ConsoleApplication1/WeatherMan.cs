@@ -27,36 +27,7 @@ namespace Djinni.Apps.WeatherManApp
         #region Constructor
         /// <summary>
         /// Create a Weatherman app. This app is capable of gathering weather data, and speaking it to the user.
-        /// </summary>
-        /// <param name="vox">Module in charge of voice out.</param>
-        /// <param name="API_key_filepath">The folder which contains the WeatherUnderground API key.</param>
-        /// <param name="API_key_filename">The name of the non-encrypted text file which contains the WeatherUnderground API key.</param>
-        public WeatherMan(String API_key_filepath, String API_key_filename)
-        {
-            System.Console.WriteLine("Loading App: WeatherMan v{0}", VERSION);
-            System.Console.WriteLine("    Reading API Key...");
-
-            try
-            {
-                // Get the API key from the Djinni Program Data folder
-                api_key = new APIKeyReader(API_key_filepath, API_key_filename).getKey();
-                System.Console.WriteLine("    API key found.");
-                System.Console.WriteLine("    App loaded successfully.");
-            }
-            catch (Exception e)
-            {
-                // If the API key cannot be read, log the error in the console and throws an error.
-                // Note, that a URL connection is never attempted.
-                String errorMessage = "WeatherMan could not locate your API key.";
-                Console.WriteLine("    Error: {0}", errorMessage);
-                Console.WriteLine("    {0}", e.Message);
-                System.Console.WriteLine("    App could not be loaded.");
-                throw new IOException(errorMessage);
-            }
-        }
-
-        /// <summary>
-        /// Create a Weatherman app. This app is capable of gathering weather data, and speaking it to the user.
+        /// <para/> The constructor does not make any calls to the WU API by itself.
         /// </summary>
         /// <param name="vox">Module in charge of voice out.</param>
         /// <param name="API_key">String of the WeatherUnderground API key.</param>

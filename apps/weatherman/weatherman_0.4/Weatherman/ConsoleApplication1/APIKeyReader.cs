@@ -21,13 +21,25 @@ namespace Djinni
 #region Methods
         /// <summary>
         /// This class reads an unencrypted API key from a text file.
-        /// The text file must contain nothing but the key.
+        /// <para/>The text file must contain nothing but the key.
         /// </summary>
-        /// <param name="file_name">The name of the .txt file to read.</param>
+        /// <param name="file_path">The full path to the files directory. For example, "C:\Foo\"</param>
+        /// <param name="file_name">The name of the file to read, including its extension. For example, "Bar.txt"</param>
         public APIKeyReader( String file_path, String file_name)
         {
            path = file_path + file_name;
         }
+
+        /// <summary>
+        /// This class reads an unencrypted API key from a text file.
+        /// <para/>The text file should contain nothing but the key.
+        /// </summary>
+        /// <param name="file_path_and_name">The full path and name of the file to read. For example, "C:\Foo\Bar.txt"</param>
+        public APIKeyReader( String file_path_and_name)
+        {
+            path = file_path_and_name;
+        }
+
 
         /// <summary>
         /// Returns the API key. The first time this method is called, the key is read from the text file.
