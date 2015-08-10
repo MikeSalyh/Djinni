@@ -48,6 +48,14 @@ namespace Djinni
 
         #endregion
 
+        #region UserData
+
+        /// <summary>
+        /// My name.
+        /// </summary>
+        // TODO: This should be loaded from a file.
+        const String MY_NAME = "Mike";
+        #endregion
 
         #endregion
 
@@ -85,7 +93,12 @@ namespace Djinni
             }
 
 
-            // Core Actions. 
+            // Core Actions.
+            
+            // This is a temporary wake up code. It should be removed before v.0.1 
+            Mod_Vox.Queue(String.Format("Good morning {0}. It's {1}. You should wake up.", MY_NAME, getTimeVocalized()));
+
+            // Read a Weather Report
             App_Weatherman.CreateWeatherReport(Mod_Vox);
 
 
@@ -95,6 +108,17 @@ namespace Djinni
             System.Console.WriteLine("Djinni core is running stably.");
             System.Console.WriteLine("Press ENTER to terminate.");
             System.Console.ReadLine();
+        }
+
+        /// <summary>
+        /// This method is TEMP. It should be part of the TemporalLobe module. Remove before v0.1
+        /// <para/> This method returns the time in HH:MM format, human-spoken.
+        /// </summary>
+        /// <returns></returns>
+        private static String getTimeVocalized()
+        {
+            String ampm = DateTime.Now.Hour > 12 ? "PM" : "AM";
+            return String.Format("{0} {1} {2}", (DateTime.Now.Hour % 12), DateTime.Now.Minute, ampm);
         }
     }
 }

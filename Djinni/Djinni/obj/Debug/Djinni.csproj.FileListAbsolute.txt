@@ -7,3 +7,4 @@ C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Newto
 C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\obj\Debug\Djinni.csprojResolveAssemblyReference.cache
 C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\obj\Debug\Djinni.exe
 C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\obj\Debug\Djinni.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Vox.DLL
