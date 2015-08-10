@@ -1,0 +1,9 @@
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Djinni.exe.config
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Djinni.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Djinni.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\obj\Debug\Djinni.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\obj\Debug\Djinni.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\Djinni\obj\Debug\Djinni.pdb

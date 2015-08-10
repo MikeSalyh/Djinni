@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Djinni", "Djinni\Djinni.csproj", "{66F16316-A1F1-4F7C-B3A1-6AAB45E9D778}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{6C10EAC5-5CC1-4525-AB05-880784433D68}"
+	ProjectSection(SolutionItems) = preProject
+		Djinni\APIKeyReader.cs = Djinni\APIKeyReader.cs
+		Djinni\Core.cs = Djinni\Core.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{4CBC5051-207A-4EFC-AE5A-4A91F119791E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WeatherMan", "WeatherMan", "{F4669EF1-F9BD-438D-B38B-225CEEF68373}"
+	ProjectSection(SolutionItems) = preProject
+		Djinni\DayForecast.cs = Djinni\DayForecast.cs
+		Djinni\WeatherMan.cs = Djinni\WeatherMan.cs
+		Djinni\WeatherReport.cs = Djinni\WeatherReport.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66F16316-A1F1-4F7C-B3A1-6AAB45E9D778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F16316-A1F1-4F7C-B3A1-6AAB45E9D778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F16316-A1F1-4F7C-B3A1-6AAB45E9D778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F16316-A1F1-4F7C-B3A1-6AAB45E9D778}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F4669EF1-F9BD-438D-B38B-225CEEF68373} = {4CBC5051-207A-4EFC-AE5A-4A91F119791E}
+	EndGlobalSection
+EndGlobal
