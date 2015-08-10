@@ -1,0 +1,12 @@
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\alarmist\bin\Debug\alarmist.exe.config
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\alarmist\obj\Debug\alarmist.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\alarmist\obj\Debug\alarmist.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\alarmist\bin\Debug\alarmist.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\alarmist\bin\Debug\alarmist.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\alarmist\obj\Debug\temporallobe.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\temporal_lobe_0.1\bin\Debug\alarmist.exe.config
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\temporal_lobe_0.1\obj\Debug\alarmist.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\temporal_lobe_0.1\obj\Debug\alarmist.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\temporal_lobe_0.1\bin\Debug\alarmist.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\temporal_lobe_0.1\bin\Debug\alarmist.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\temporal_lobe\temporal_lobe_0.1\obj\Debug\temporallobe.csprojResolveAssemblyReference.cache
