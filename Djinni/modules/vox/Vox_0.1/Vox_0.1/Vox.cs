@@ -13,8 +13,13 @@ namespace Module.Vox
     /// </summary>
     public class Vox : IDisposable
     {
+        /// <summary>
+        /// The stable version of the module.
+        /// </summary>
+        public static const String VERSION = "0.2";
+        
         /// <summary> The speech synethesizer for Vox </summary>
-        SpeechSynthesizer synth;
+        private SpeechSynthesizer synth;
 
         /// <summary> The voice with which Vox speaks. This is a SAPI voice. </summary>
         private const String VOX_VOICE = "Microsoft Zira Desktop";
