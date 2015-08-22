@@ -11,10 +11,11 @@ namespace Module.LogWriter
     /// </summary>
     class LogWriter
     {
+        #region Variables & Consts
         /// <summary>
         /// The stable version of the module.
         /// </summary>
-        public const String VERSION = "0.1u";
+        public const String VERSION = "0.1";
 
         /// <summary>
         /// The location of the folder where Djinni's logs will be written.
@@ -26,6 +27,9 @@ namespace Module.LogWriter
         /// </summary>
         private const String LOG_FILE_NAME = "log.txt";
 
+        #endregion
+
+        #region Constructor
         /// <summary>
         /// Create a log writer. The log writer takes in a filepath as a parameter.
         /// </summary>
@@ -36,8 +40,10 @@ namespace Module.LogWriter
             this.log_folder_location = log_folder_location;
         }
 
+        #endregion
+
         #region Public Methods
-        
+
         /// <summary>
         /// Given a message, writes that message to the log file.
         /// </summary>
@@ -75,14 +81,9 @@ namespace Module.LogWriter
                 try
                 {
                     //First, check if a log file already exists.
-                    if( !File.Exists(log_folder_location + LogWriter.LOG_FILE_NAME))
+                    if(!LogExists())
                     {
-                        // The log file doesn't exist. Create it.
-                        // TODO: Write the script that creates the new file.
-                        Console.WriteLine("LogWriter: Created a new log file in {0}", log_folder_location);
-
-                        const String CREATION_MESSAGE = "New log file created.";
-                        LogMessage("LogWriter", VERSION, CREATION_MESSAGE);
+                        CreateLog();
                     }
 
                     // Then, log the message.
@@ -108,14 +109,73 @@ namespace Module.LogWriter
             }
         }
 
+        /// <summary>
+        /// Returns the folder in which this LogWriter's logs are stored.
+        /// </summary>
+        /// <returns>The folder where this LogWriter's logs are stored.</returns>
+        public String GetLogDirectory()
+        {
+            return log_folder_location;
+        }
+
+        /// <summary>
+        /// Returns the file path and name of the currently active log file.
+        /// </summary>
+        /// <returns>The log file's name and path.</returns>
+        public String GetLogFilepath()
+        {
+            return Path.Combine(log_folder_location, LogWriter.LOG_FILE_NAME);
+        }
+
         #endregion
 
         #region Private Methods
 
+        /// <summary>
+        /// Check whether or not a log file exists.
+        /// <para/>This method would be more complex if multiple log files are needed.
+        /// </summary>
+        /// <returns>True if the log file exists.</returns>
+        private bool LogExists()
+        {
+            return File.Exists( Path.Combine(log_folder_location, LogWriter.LOG_FILE_NAME));
+        }
+
+        /// <summary>
+        /// Create a new log.
+        /// <para/>This method would become more complex if multiple log files are needed.
+        /// </summary>
+        /// <returns>The filestream that was created.</returns>
+        private void CreateLog()
+        {
+           File.Create( Path.Combine(log_folder_location, LogWriter.LOG_FILE_NAME)).Close();
+           Console.WriteLine("LogWriter: Created a new log file in {0}", log_folder_location);
+
+           const String CREATION_MESSAGE = "New log file created.";
+           LogMessage("LogWriter", VERSION, CREATION_MESSAGE);
+
+        }
+
+        /// <summary>
+        /// Log a message into the log file, and into the console.
+        /// </summary>
+        /// <param name="caller">The object that called this log action.</param>
+        /// <param name="caller_version">The version number of the caller.</param>
+        /// <param name="message">The message to be logged.</param>
         private void LogMessage(String caller, String caller_version, String message)
         {
-            Console.WriteLine( GenerateLogString(caller, caller_version, message));
-            //TODO: Make this actually write to drive.
+            String output = GenerateLogString(caller, caller_version, message);
+
+            // Write the line into the log file.
+            using( TextWriter text_writer = new StreamWriter( Path.Combine(log_folder_location, LogWriter.LOG_FILE_NAME), append:true))
+            {
+                text_writer.WriteLine(output);
+                text_writer.Close();
+            }
+
+            // Then, write the line into the console.
+            Console.WriteLine(output); 
+
         }
 
         /// <summary>
