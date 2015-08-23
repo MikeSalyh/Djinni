@@ -1,6 +1,0 @@
-C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\alarmist\alarmist\bin\Debug\alarmist.exe.config
-C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\alarmist\alarmist\bin\Debug\alarmist.exe
-C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\alarmist\alarmist\bin\Debug\alarmist.pdb
-C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\alarmist\alarmist\obj\Debug\alarmist.csprojResolveAssemblyReference.cache
-C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\alarmist\alarmist\obj\Debug\alarmist.exe
-C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\alarmist\alarmist\obj\Debug\alarmist.pdb

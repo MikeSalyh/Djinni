@@ -1,3 +1,5 @@
 .metadata/*
 .metadata
 .DS_Store
+bin/
+obj/
