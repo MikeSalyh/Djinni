@@ -16,7 +16,7 @@ namespace Module.Vox
         /// <summary>
         /// The stable version of the module.
         /// </summary>
-        public static const String VERSION = "0.2";
+        public const String VERSION = "0.2";
         
         /// <summary> The speech synethesizer for Vox </summary>
         private SpeechSynthesizer synth;
