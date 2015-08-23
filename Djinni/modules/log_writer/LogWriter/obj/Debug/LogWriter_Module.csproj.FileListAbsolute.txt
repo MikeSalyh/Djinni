@@ -1,0 +1,12 @@
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\LogWriter\LogWriter\bin\Debug\LogWriter.exe.config
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\LogWriter\LogWriter\bin\Debug\LogWriter.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\LogWriter\LogWriter\bin\Debug\LogWriter.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\LogWriter\LogWriter\obj\Debug\LogWriter_Module.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\LogWriter\LogWriter\obj\Debug\LogWriter.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\LogWriter\LogWriter\obj\Debug\LogWriter.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\log_writer\LogWriter\bin\Debug\LogWriter.exe.config
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\log_writer\LogWriter\obj\Debug\LogWriter.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\log_writer\LogWriter\obj\Debug\LogWriter.pdb
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\log_writer\LogWriter\obj\Debug\LogWriter_Module.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\log_writer\LogWriter\bin\Debug\LogWriter.exe
+C:\Users\Mike\Documents\Home Automation\Djinni.git\Djinni\modules\log_writer\LogWriter\bin\Debug\LogWriter.pdb
