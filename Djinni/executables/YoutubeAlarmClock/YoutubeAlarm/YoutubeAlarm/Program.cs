@@ -57,8 +57,7 @@ namespace YoutubeAlarm
 
             System.Diagnostics.Process.Start(y.getHTML());
 
-            System.Console.WriteLine("Press any key to terminate...");
-            System.Console.ReadKey();
+            System.Console.WriteLine("Terminating...");
         }
     }
 }

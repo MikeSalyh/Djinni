@@ -8,7 +8,7 @@ namespace YoutubeAlarm
         private String outputFolder;
 
         private const String HTML_FIRST = "<!DOCTYPE html> <html> <body> <!-- 1. The <iframe> (and video player) will replace this <div> tag. --> <div id=\"player\"></div> <script> var tag = document.createElement('script'); tag.src = \"https://www.youtube.com/iframe_api\"; var firstScriptTag = document.getElementsByTagName('script')[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() { player = new YT.Player('player', { height: '390', width: '640', videoId: '";
-        private const string HTML_LAST = "', events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange } }); } function onPlayerReady(event) { event.target.playVideo(); event.target.setVolume(100); } var done = false; function onPlayerStateChange(event) { if (event.data == YT.PlayerState.PLAYING && !done) { setTimeout(stopVideo, 6000); done = true; } } function stopVideo() { player.stopVideo(); } </script> </body> </html>";
+        private const string HTML_LAST = "', events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange } }); } function onPlayerReady(event) { event.target.playVideo(); event.target.setVolume(100); } var done = false; function onPlayerStateChange(event) { if (event.data == YT.PlayerState.PLAYING && !done) { done = true; } } function stopVideo() { player.stopVideo(); } </script> </body> </html>";
        
         private const String HTML_FILE = "YoutubeVideo.html";
 
@@ -18,8 +18,6 @@ namespace YoutubeAlarm
             this.id = YoutubeVideoID;
             this.outputFolder = outputFolder;
         }
-
-
 
         /// <summary>
         /// Returns the file path and name of the current HTML page.
