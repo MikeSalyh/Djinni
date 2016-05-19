@@ -9,7 +9,7 @@ namespace Module.LogWriter
     /// <summary>
     /// The log writer module writes event logs to memory.
     /// </summary>
-    class LogWriter
+    public class LogWriter
     {
         #region Variables & Consts
         /// <summary>
